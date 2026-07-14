@@ -19,6 +19,7 @@ class GoogleAuthService:
         user = User.objects.filter(email=email).first()
         if user:
             return user
+        
 
         return User.objects.create_user(
             email=email,
