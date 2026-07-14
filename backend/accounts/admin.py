@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import User
+from .models import *
 
 
 @admin.register(User)
@@ -60,3 +60,35 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
+
+from django.contrib import admin
+
+from .models import OAuthCredential
+
+
+@admin.register(OAuthCredential)
+class OAuthCredentialAdmin(admin.ModelAdmin):
+    list_display = (
+        "user",
+        "provider",
+        "provider_user_id",
+        "created_at",
+        "updated_at",
+    )
+
+    list_filter = (
+        "provider",
+        "created_at",
+    )
+
+    search_fields = (
+        "user__email",
+        "provider_user_id",
+    )
+
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+    )
+
+    ordering = ("-created_at",)
